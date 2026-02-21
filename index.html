@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>EVENT_TITLE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e1e1e;
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 20px auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    img {
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    button {
+      background: #ff2e63;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .joined {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+
+      <h1>EVENT_TITLE</h1>
+
+      <img src="IMAGE_URL_HERE" alt="Event Image">
+
+      <p><strong>📅 Ημερομηνία:</strong> DATE_HERE</p>
+      <p><strong>📍 Τοποθεσία:</strong> LOCATION_HERE</p>
+
+      <p>
+        EVENT_DESCRIPTION_HERE
+      </p>
+
+      <button onclick="joinEvent()">Join Event</button>
+
+      <div class="joined" id="joinedText">
+        Κανείς δεν έχει κάνει join ακόμα 👀
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let joined = 0;
+
+    function joinEvent() {
+      joined++;
+      document.getElementById("joinedText").innerText =
+        joined + " άτομα έχουν κάνει join 🔥";
+    }
+  </script>
+
+</body>
+</html>
