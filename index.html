@@ -3,67 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Private Event</title>
+<title>Private Events</title>
 
 <style>
 body {
   margin:0;
-  background:#000;
-  color:white;
   font-family:Arial, sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+  background:#111;
+  color:white;
   text-align:center;
 }
 
+/* LOCK */
 #lockScreen {
   display:flex;
   flex-direction:column;
+  justify-content:center;
   align-items:center;
+  height:100vh;
+  background:#000;
 }
 
-#eventContent {
-  display:none;
-  padding:20px;
-}
+.lock { font-size:80px; }
 
 input {
-  padding:10px;
+  padding:12px;
   margin-top:15px;
-  border-radius:10px;
+  border-radius:12px;
   border:none;
   text-align:center;
   font-size:16px;
 }
 
 button {
-  margin-top:10px;
-  padding:10px 20px;
-  border:none;
-  border-radius:20px;
   background:#ff2e63;
   color:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:25px;
   cursor:pointer;
+  margin-top:10px;
 }
 
-.lock {
-  font-size:80px;
+button:disabled {
+  background:gray;
+  cursor:not-allowed;
+}
+
+/* EVENTS */
+#eventContent { display:none; padding:20px; }
+
+.card {
+  background:#1e1e1e;
+  border-radius:20px;
+  padding:20px;
+  max-width:400px;
+  margin:20px auto;
+  box-shadow:0 0 15px rgba(0,0,0,0.5);
+}
+
+.status {
+  margin-top:10px;
+  font-size:14px;
+  opacity:0.9;
 }
 </style>
 </head>
 <body>
 
+<!-- LOCK -->
 <div id="lockScreen">
   <div class="lock">🔒</div>
   <input type="password" id="codeInput" placeholder="Βάλε κωδικό">
   <button onclick="checkCode()">Είσοδος</button>
 </div>
 
+<!-- EVENTS -->
 <div id="eventContent">
-  <h1>ΤΟ EVENT ΣΟΥ</h1>
-  <p>Εδώ βάζεις το περιεχόμενο που θέλεις να φαίνεται μόνο αν μπει ο σωστός κωδικός.</p>
+
+  <!-- 1 Θέατρο -->
+  <div class="card">
+    <h2>Θέατρο</h2>
+    <p>📅 21/2</p>
+    <div class="status">Running now 🎭</div>
+  </div>
+
+  <!-- 2 Escape Room -->
+  <div class="card">
+    <h2>Escape Room Event</h2>
+    <input type="text" id="name2" placeholder="Βάλε όνομα">
+    <button onclick="joinEvent(2)">Join</button>
+    <div class="status" id="status2"></div>
+    <div id="contact2"></div>
+  </div>
+
+  <!-- 3 Kart Event -->
+  <div class="card">
+    <h2>Kart Event</h2>
+    <input type="text" id="name3" placeholder="Βάλε όνομα">
+    <button disabled>Join</button>
+    <div class="status">Για συμμετοχή πάτα contact ⬇</div>
+    <div id="contact3">
+      <button onclick="contact()">Contact</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -75,6 +119,26 @@ function checkCode() {
   } else {
     alert("Λάθος κωδικός");
   }
+}
+
+function joinEvent(eventNumber) {
+  if(eventNumber === 2) {
+    const name = document.getElementById("name2").value;
+    if(name.trim() === "") {
+      alert("Βάλε όνομα πρώτα");
+      return;
+    }
+
+    document.getElementById("status2").innerText =
+      name + " joined ✅";
+
+    document.getElementById("contact2").innerHTML =
+      '<button onclick="contact()">Contact</button>';
+  }
+}
+
+function contact() {
+  window.location.href = "tel:6943528311";
 }
 </script>
 
