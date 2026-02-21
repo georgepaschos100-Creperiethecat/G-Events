@@ -1,92 +1,82 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8">
-  <title>EVENT_TITLE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Event</title>
 
-    .container {
-      padding: 20px;
-    }
+<style>
+body {
+  margin:0;
+  background:#000;
+  color:white;
+  font-family:Arial, sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
 
-    .card {
-      background: #1e1e1e;
-      border-radius: 20px;
-      padding: 20px;
-      max-width: 400px;
-      margin: 20px auto;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    }
+#lockScreen {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
 
-    img {
-      width: 100%;
-      border-radius: 15px;
-    }
+#eventContent {
+  display:none;
+  padding:20px;
+}
 
-    button {
-      background: #ff2e63;
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 30px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
+input {
+  padding:10px;
+  margin-top:15px;
+  border-radius:10px;
+  border:none;
+  text-align:center;
+  font-size:16px;
+}
 
-    button:hover {
-      opacity: 0.9;
-    }
+button {
+  margin-top:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff2e63;
+  color:white;
+  cursor:pointer;
+}
 
-    .joined {
-      margin-top: 10px;
-      font-size: 14px;
-      opacity: 0.8;
-    }
-  </style>
+.lock {
+  font-size:80px;
+}
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="card">
+<div id="lockScreen">
+  <div class="lock">🔒</div>
+  <input type="password" id="codeInput" placeholder="Βάλε κωδικό">
+  <button onclick="checkCode()">Είσοδος</button>
+</div>
 
-      <h1>EVENT_TITLE</h1>
+<div id="eventContent">
+  <h1>ΤΟ EVENT ΣΟΥ</h1>
+  <p>Εδώ βάζεις το περιεχόμενο που θέλεις να φαίνεται μόνο αν μπει ο σωστός κωδικός.</p>
+</div>
 
-      <img src="IMAGE_URL_HERE" alt="Event Image">
-
-      <p><strong>📅 Ημερομηνία:</strong> DATE_HERE</p>
-      <p><strong>📍 Τοποθεσία:</strong> LOCATION_HERE</p>
-
-      <p>
-        EVENT_DESCRIPTION_HERE
-      </p>
-
-      <button onclick="joinEvent()">Join Event</button>
-
-      <div class="joined" id="joinedText">
-        Κανείς δεν έχει κάνει join ακόμα 👀
-      </div>
-
-    </div>
-  </div>
-
-  <script>
-    let joined = 0;
-
-    function joinEvent() {
-      joined++;
-      document.getElementById("joinedText").innerText =
-        joined + " άτομα έχουν κάνει join 🔥";
-    }
-  </script>
+<script>
+function checkCode() {
+  const code = document.getElementById("codeInput").value;
+  if(code === "7667") {
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("eventContent").style.display = "block";
+  } else {
+    alert("Λάθος κωδικός");
+  }
+}
+</script>
 
 </body>
 </html>
