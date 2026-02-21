@@ -1,145 +1,161 @@
 <!DOCTYPE html>
-<html lang="el">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Private Events</title>
+  <meta charset="UTF-8">
+  <title>G-Events</title>
 
-<style>
-body {
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#111;
-  color:white;
-  text-align:center;
-}
-
-/* LOCK */
-#lockScreen {
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  background:#000;
-}
-
-.lock { font-size:80px; }
-
-input {
-  padding:12px;
-  margin-top:15px;
-  border-radius:12px;
-  border:none;
-  text-align:center;
-  font-size:16px;
-}
-
-button {
-  background:#ff2e63;
-  color:white;
-  border:none;
-  padding:10px 20px;
-  border-radius:25px;
-  cursor:pointer;
-  margin-top:10px;
-}
-
-button:disabled {
-  background:gray;
-  cursor:not-allowed;
-}
-
-/* EVENTS */
-#eventContent { display:none; padding:20px; }
-
-.card {
-  background:#1e1e1e;
-  border-radius:20px;
-  padding:20px;
-  max-width:400px;
-  margin:20px auto;
-  box-shadow:0 0 15px rgba(0,0,0,0.5);
-}
-
-.status {
-  margin-top:10px;
-  font-size:14px;
-  opacity:0.9;
-}
-</style>
-</head>
-<body>
-
-<!-- LOCK -->
-<div id="lockScreen">
-  <div class="lock">🔒</div>
-  <input type="password" id="codeInput" placeholder="Βάλε κωδικό">
-  <button onclick="checkCode()">Είσοδος</button>
-</div>
-
-<!-- EVENTS -->
-<div id="eventContent">
-
-  <!-- 1 Θέατρο -->
-  <div class="card">
-    <h2>Θέατρο</h2>
-    <p>📅 21/2</p>
-    <div class="status">Running now 🎭</div>
-  </div>
-
-  <!-- 2 Escape Room -->
-  <div class="card">
-    <h2>Escape Room Event</h2>
-    <input type="text" id="name2" placeholder="Βάλε όνομα">
-    <button onclick="joinEvent(2)">Join</button>
-    <div class="status" id="status2"></div>
-    <div id="contact2"></div>
-  </div>
-
-  <!-- 3 Kart Event -->
-  <div class="card">
-    <h2>Kart Event</h2>
-    <input type="text" id="name3" placeholder="Βάλε όνομα">
-    <button disabled>Join</button>
-    <div class="status">Για συμμετοχή πάτα contact ⬇</div>
-    <div id="contact3">
-      <button onclick="contact()">Contact</button>
-    </div>
-  </div>
-
-</div>
-
-<script>
-function checkCode() {
-  const code = document.getElementById("codeInput").value;
-  if(code === "7667") {
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("eventContent").style.display = "block";
-  } else {
-    alert("Λάθος κωδικός");
-  }
-}
-
-function joinEvent(eventNumber) {
-  if(eventNumber === 2) {
-    const name = document.getElementById("name2").value;
-    if(name.trim() === "") {
-      alert("Βάλε όνομα πρώτα");
-      return;
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
     }
 
-    document.getElementById("status2").innerText =
-      name + " joined ✅";
+    h1 {
+      color: #00bfff;
+    }
 
-    document.getElementById("contact2").innerHTML =
-      '<button onclick="contact()">Contact</button>';
-  }
-}
+    .card {
+      background: #1e1e1e;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 15px;
+      width: 300px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px;
+      background: #ff4da6;
+      color: white;
+      font-weight: bold;
+    }
+
+    .green {
+      background: #28a745;
+    }
+
+    .purple {
+      background: #8a2be2;
+    }
+
+    .redCard {
+      background: #3a0000;
+      border: 2px solid red;
+    }
+
+    .blueText {
+      color: #00bfff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>G-Events</h1>
+
+<div id="events"></div>
+
+<script>
 
 function contact() {
   window.location.href = "tel:6943528311";
 }
+
+/* ---------- ΘΕΑΤΡΟ ---------- */
+
+function joinTheatre() {
+  if(localStorage.getItem("theatreJoined")) return;
+
+  localStorage.setItem("theatreJoined", "true");
+
+  const btn = document.getElementById("theatreBtn");
+  btn.innerText = "Already Joined";
+  btn.classList.add("green");
+  btn.disabled = true;
+
+  document.getElementById("theatreMessage").innerText =
+    "Έχεις ήδη κάνει join 🎭";
+}
+
+/* ---------- ESCAPE ROOM ---------- */
+
+function joinEscape() {
+  if(localStorage.getItem("escapeJoined")) return;
+
+  let name = prompt("Βάλε όνομα:");
+  if(!name) return;
+
+  localStorage.setItem("escapeJoined", name);
+
+  document.getElementById("escapeStatus").innerText =
+    name + " joined ✅";
+}
+
+/* ---------- LOAD EVENTS ---------- */
+
+window.onload = function() {
+
+  document.getElementById("events").innerHTML = `
+
+  <!-- ΘΕΑΤΡΟ -->
+  <div class="card">
+    <h2>Θέατρο</h2>
+    <p>📅 21/2</p>
+
+    <div id="theatreMessage">
+      Μπορείς ακόμα να joinάρεις, πάτα 👇
+    </div>
+
+    <button id="theatreBtn" onclick="joinTheatre()">Join</button>
+    <button class="purple" onclick="contact()">Contact</button>
+  </div>
+
+  <!-- ESCAPE ROOM -->
+  <div class="card">
+    <h2>Escape Room</h2>
+    <p>📅 22/2</p>
+
+    <button onclick="joinEscape()">Join</button>
+    <button class="purple" onclick="contact()">Contact</button>
+
+    <div id="escapeStatus"></div>
+  </div>
+
+  <!-- ΠΛΑΝΗΤΑΡΙΟ -->
+  <div class="card redCard">
+    <div class="blueText">NEXT</div>
+    <h2>Πλανητάριο</h2>
+    <p>Ημερομηνία: ΑΥΡΙΟ 22/2</p>
+
+    <button disabled>Join</button>
+    <button class="purple" onclick="contact()">Contact</button>
+  </div>
+  `;
+
+  if(localStorage.getItem("theatreJoined")) {
+    const btn = document.getElementById("theatreBtn");
+    btn.innerText = "Already Joined";
+    btn.classList.add("green");
+    btn.disabled = true;
+    document.getElementById("theatreMessage").innerText =
+      "Έχεις ήδη κάνει join 🎭";
+  }
+
+  let escapeName = localStorage.getItem("escapeJoined");
+  if(escapeName) {
+    document.getElementById("escapeStatus").innerText =
+      escapeName + " joined ✅";
+  }
+
+};
+
 </script>
 
 </body>
