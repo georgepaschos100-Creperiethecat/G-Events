@@ -68,24 +68,6 @@ function contact() {
   window.location.href = "tel:6943528311";
 }
 
-/* ---------- ΘΕΑΤΡΟ ---------- */
-
-function joinTheatre() {
-  if(localStorage.getItem("theatreJoined")) return;
-
-  localStorage.setItem("theatreJoined", "true");
-
-  const btn = document.getElementById("theatreBtn");
-  btn.innerText = "Already Joined";
-  btn.classList.add("green");
-  btn.disabled = true;
-
-  document.getElementById("theatreMessage").innerText =
-    "Έχεις ήδη κάνει join 🎭";
-}
-
-/* ---------- ESCAPE ROOM ---------- */
-
 function joinEscape() {
   if(localStorage.getItem("escapeJoined")) return;
 
@@ -94,11 +76,14 @@ function joinEscape() {
 
   localStorage.setItem("escapeJoined", name);
 
-  document.getElementById("escapeStatus").innerText =
-    name + " joined ✅";
-}
+  const btn = document.getElementById("escapeBtn");
+  btn.innerText = "Already Joined";
+  btn.classList.add("green");
+  btn.disabled = true;
 
-/* ---------- LOAD EVENTS ---------- */
+  document.getElementById("escapeStatus").innerText =
+    name + " joined 🧩";
+}
 
 window.onload = function() {
 
@@ -108,12 +93,9 @@ window.onload = function() {
   <div class="card">
     <h2>Θέατρο</h2>
     <p>📅 21/2</p>
-
-    <div id="theatreMessage">
-      Μπορείς ακόμα να joinάρεις, πάτα 👇
-    </div>
-
-    <button id="theatreBtn" onclick="joinTheatre()">Join</button>
+    <p style="color:orange; font-weight:bold;">
+      ALREADY RUNNING 🎭
+    </p>
     <button class="purple" onclick="contact()">Contact</button>
   </div>
 
@@ -122,36 +104,38 @@ window.onload = function() {
     <h2>Escape Room</h2>
     <p>📅 22/2</p>
 
-    <button onclick="joinEscape()">Join</button>
+    <button id="escapeBtn" onclick="joinEscape()">Join</button>
     <button class="purple" onclick="contact()">Contact</button>
 
     <div id="escapeStatus"></div>
+  </div>
+
+  <!-- KART EVENT -->
+  <div class="card">
+    <h2>Kart Event</h2>
+    <p>📅 23/2</p>
+    <button class="purple" onclick="contact()">Contact</button>
   </div>
 
   <!-- ΠΛΑΝΗΤΑΡΙΟ -->
   <div class="card redCard">
     <div class="blueText">NEXT</div>
     <h2>Πλανητάριο</h2>
-    <p>Ημερομηνία: ΑΥΡΙΟ 22/2</p>
-
-    <button disabled>Join</button>
+    <p style="font-weight:bold;">SOON 🌌</p>
     <button class="purple" onclick="contact()">Contact</button>
   </div>
-  `;
 
-  if(localStorage.getItem("theatreJoined")) {
-    const btn = document.getElementById("theatreBtn");
-    btn.innerText = "Already Joined";
-    btn.classList.add("green");
-    btn.disabled = true;
-    document.getElementById("theatreMessage").innerText =
-      "Έχεις ήδη κάνει join 🎭";
-  }
+  `;
 
   let escapeName = localStorage.getItem("escapeJoined");
   if(escapeName) {
+    const btn = document.getElementById("escapeBtn");
+    btn.innerText = "Already Joined";
+    btn.classList.add("green");
+    btn.disabled = true;
+
     document.getElementById("escapeStatus").innerText =
-      escapeName + " joined ✅";
+      escapeName + " joined 🧩";
   }
 
 };
