@@ -1,154 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>G-Events</title>
+const correctPassword = "7667";
 
-  <style>
-    body {
-      font-family: Arial;
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+function checkPassword() {
+  let input = document.getElementById("passInput").value;
 
-    h1 {
-      color: #00bfff;
-    }
-
-    .card {
-      background: #1e1e1e;
-      padding: 20px;
-      margin: 20px auto;
-      border-radius: 15px;
-      width: 300px;
-    }
-
-    button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin: 5px;
-      background: #ff4da6;
-      color: white;
-      font-weight: bold;
-    }
-
-    .green {
-      background: #28a745;
-    }
-
-    .purple {
-      background: #8a2be2;
-    }
-
-    .redCard {
-      background: #3a0000;
-      border: 2px solid red;
-    }
-
-    .blueText {
-      color: #00bfff;
-      font-weight: bold;
-    }
-  </style>
-</head>
-
-<body>
-
-<h1>G-Events</h1>
-
-<div id="events"></div>
-
-<script>
-
-function contact() {
-  window.location.href = "tel:6943528311";
-}
-
-function joinEscape() {
-  if(localStorage.getItem("escapeJoined")) return;
-
-  let name = prompt("Βάλε όνομα:");
-  if(!name) return;
-
-  localStorage.setItem("escapeJoined", name);
-
-  const btn = document.getElementById("escapeBtn");
-  btn.innerText = "Already Joined";
-  btn.classList.add("green");
-  btn.disabled = true;
-
-  document.getElementById("escapeStatus").innerText =
-    name + " joined 🧩";
+  if(input === correctPassword) {
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("events").style.display = "block";
+  } else {
+    alert("Λάθος κωδικός");
+  }
 }
 
 window.onload = function() {
 
-  document.getElementById("events").innerHTML = `
+  document.getElementById("events").style.display = "none";
 
-<!-- ΘΕΑΤΡΟ -->
-<div class="card">
-  <h2>🎭 Θέατρο</h2>
-  <p>📅 21/2</p>
-  <p style="color:#ff9800; font-weight:bold;">
-    🔴 ALREADY RUNNING
-  </p>
-  <p>Το event είναι σε εξέλιξη!</p>
-  <button class="purple" onclick="contact()">📞 Contact</button>
-</div>
-
-<!-- ESCAPE ROOM -->
-<div class="card">
-  <h2>🧩 Escape Room</h2>
-  <p>📅 22/2</p>
-  <p>Έτοιμος για challenge;</p>
-
-  <button id="escapeBtn" onclick="joinEscape()">🚀 Join</button>
-  <button class="purple" onclick="contact()">📞 Contact</button>
-
-  <div id="escapeStatus"></div>
-</div>
-
-<!-- KART EVENT -->
-<div class="card">
-  <h2>🏎 Kart Event</h2>
-  <p>📅 23/2</p>
-  <p>Full speed mode activated.</p>
-
-  <button class="purple" onclick="contact()">📞 Contact</button>
-</div>
-
-<!-- ΠΛΑΝΗΤΑΡΙΟ -->
-<div class="card redCard">
-  <div class="blueText">✨ NEXT EVENT</div>
-  <h2>🌌 Πλανητάριο</h2>
-  <p style="font-size:18px; font-weight:bold;">
-    SOON
-  </p>
-  <p>Stay tuned...</p>
-
-  <button class="purple" onclick="contact()">📞 Contact</button>
-</div>
-
-`;
-
-  let escapeName = localStorage.getItem("escapeJoined");
-  if(escapeName) {
-    const btn = document.getElementById("escapeBtn");
-    btn.innerText = "Already Joined";
-    btn.classList.add("green");
-    btn.disabled = true;
-
-    document.getElementById("escapeStatus").innerText =
-      escapeName + " joined 🧩";
-  }
+  document.body.insertAdjacentHTML("afterbegin", `
+    <div id="lockScreen" style="
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:#000;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+    ">
+      <div style="font-size:60px;">🔒</div>
+      <h2>Enter Access Code</h2>
+      <input id="passInput" type="password"
+        style="padding:10px; font-size:18px; border-radius:8px; border:none;">
+      <br><br>
+      <button onclick="checkPassword()">Enter</button>
+    </div>
+  `);
 
 };
-
-</script>
-
-</body>
-</html>
