@@ -1,3 +1,38 @@
+<body>
+
+<div id="lockScreen" style="
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#000;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+">
+
+  <div style="font-size:70px;">🔒</div>
+  <h2>Enter Access Code</h2>
+
+  <input id="passInput" type="password"
+    style="padding:12px; font-size:18px; border-radius:8px; border:none; text-align:center;">
+
+  <br><br>
+
+  <button onclick="checkPassword()">Enter</button>
+
+</div>
+
+<div id="mainContent" style="display:none;">
+  <h1>G-Events</h1>
+  <div id="events"></div>
+</div>
+
+<script>
+
 const correctPassword = "7667";
 
 function checkPassword() {
@@ -5,36 +40,12 @@ function checkPassword() {
 
   if(input === correctPassword) {
     document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("events").style.display = "block";
+    document.getElementById("mainContent").style.display = "block";
   } else {
-    alert("Λάθος κωδικός");
+    alert("Wrong code");
   }
 }
 
-window.onload = function() {
+</script>
 
-  document.getElementById("events").style.display = "none";
-
-  document.body.insertAdjacentHTML("afterbegin", `
-    <div id="lockScreen" style="
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background:#000;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-    ">
-      <div style="font-size:60px;">🔒</div>
-      <h2>Enter Access Code</h2>
-      <input id="passInput" type="password"
-        style="padding:10px; font-size:18px; border-radius:8px; border:none;">
-      <br><br>
-      <button onclick="checkPassword()">Enter</button>
-    </div>
-  `);
-
-};
+</body>
