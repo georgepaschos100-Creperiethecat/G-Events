@@ -89,43 +89,51 @@ window.onload = function() {
 
   document.getElementById("events").innerHTML = `
 
-  <!-- ΘΕΑΤΡΟ -->
-  <div class="card">
-    <h2>Θέατρο</h2>
-    <p>📅 21/2</p>
-    <p style="color:orange; font-weight:bold;">
-      ALREADY RUNNING 🎭
-    </p>
-    <button class="purple" onclick="contact()">Contact</button>
-  </div>
+<!-- ΘΕΑΤΡΟ -->
+<div class="card">
+  <h2>🎭 Θέατρο</h2>
+  <p>📅 21/2</p>
+  <p style="color:#ff9800; font-weight:bold;">
+    🔴 ALREADY RUNNING
+  </p>
+  <p>Το event είναι σε εξέλιξη!</p>
+  <button class="purple" onclick="contact()">📞 Contact</button>
+</div>
 
-  <!-- ESCAPE ROOM -->
-  <div class="card">
-    <h2>Escape Room</h2>
-    <p>📅 22/2</p>
+<!-- ESCAPE ROOM -->
+<div class="card">
+  <h2>🧩 Escape Room</h2>
+  <p>📅 22/2</p>
+  <p>Έτοιμος για challenge;</p>
 
-    <button id="escapeBtn" onclick="joinEscape()">Join</button>
-    <button class="purple" onclick="contact()">Contact</button>
+  <button id="escapeBtn" onclick="joinEscape()">🚀 Join</button>
+  <button class="purple" onclick="contact()">📞 Contact</button>
 
-    <div id="escapeStatus"></div>
-  </div>
+  <div id="escapeStatus"></div>
+</div>
 
-  <!-- KART EVENT -->
-  <div class="card">
-    <h2>Kart Event</h2>
-    <p>📅 23/2</p>
-    <button class="purple" onclick="contact()">Contact</button>
-  </div>
+<!-- KART EVENT -->
+<div class="card">
+  <h2>🏎 Kart Event</h2>
+  <p>📅 23/2</p>
+  <p>Full speed mode activated.</p>
 
-  <!-- ΠΛΑΝΗΤΑΡΙΟ -->
-  <div class="card redCard">
-    <div class="blueText">NEXT</div>
-    <h2>Πλανητάριο</h2>
-    <p style="font-weight:bold;">SOON 🌌</p>
-    <button class="purple" onclick="contact()">Contact</button>
-  </div>
+  <button class="purple" onclick="contact()">📞 Contact</button>
+</div>
 
-  `;
+<!-- ΠΛΑΝΗΤΑΡΙΟ -->
+<div class="card redCard">
+  <div class="blueText">✨ NEXT EVENT</div>
+  <h2>🌌 Πλανητάριο</h2>
+  <p style="font-size:18px; font-weight:bold;">
+    SOON
+  </p>
+  <p>Stay tuned...</p>
+
+  <button class="purple" onclick="contact()">📞 Contact</button>
+</div>
+
+`;
 
   let escapeName = localStorage.getItem("escapeJoined");
   if(escapeName) {
