@@ -38,6 +38,11 @@ button{
 .redCard{background:#3a0000;border:2px solid red;}
 .blueText{color:#00bfff;font-weight:bold;}
 
+.star{
+  font-size:28px;
+  cursor:pointer;
+}
+
 #lockScreen{
   position:fixed;
   top:0;
@@ -56,7 +61,7 @@ button{
 
 <body>
 
-<!-- LOCK SCREEN -->
+<!-- LOCK -->
 <div id="lockScreen">
   <div style="font-size:70px;">🔒</div>
   <h2>Enter Access Code</h2>
@@ -66,34 +71,48 @@ button{
   <button onclick="checkPassword()">Enter</button>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div id="mainContent" style="display:none;">
-  <h1 style="color:#00bfff;">G-Events</h1>
 
-  <div class="card">
-    <h2>🎭 Θέατρο</h2>
-    <p style="color:orange;font-weight:bold;">🔴 ALREADY RUNNING</p>
-    <button class="purple" onclick="contact()">Contact</button>
+<h1 style="color:#00bfff;">G-Events</h1>
+
+<!-- ΘΕΑΤΡΟ -->
+<div class="card">
+  <div style="color:#00ffcc;font-weight:bold;">
+    ✅ about a day ago
   </div>
 
-  <div class="card">
-    <h2>🧩 Escape Room</h2>
-    <button id="escapeBtn" onclick="joinEscape()">Join</button>
-    <button class="purple" onclick="contact()">Contact</button>
-    <div id="escapeStatus"></div>
-  </div>
+  <h2>🎭 Θέατρο</h2>
+  <p style="color:orange;font-weight:bold;">🔴 ALREADY RUNNING</p>
 
-  <div class="card">
-    <h2>🏎 Kart Event</h2>
-    <button class="purple" onclick="contact()">Contact</button>
-  </div>
+  <p>Rate this event:</p>
+  <div id="theatreStars"></div>
+  <div id="ratingResult" style="margin-top:10px;"></div>
 
-  <div class="card redCard">
-    <div class="blueText">NEXT</div>
-    <h2>🌌 Πλανητάριο</h2>
-    <p style="font-weight:bold;">SOON</p>
-    <button class="purple" onclick="contact()">Contact</button>
-  </div>
+  <button class="purple" onclick="contact()">Contact</button>
+</div>
+
+<!-- ESCAPE -->
+<div class="card">
+  <h2>🧩 Escape Room</h2>
+  <button id="escapeBtn" onclick="joinEscape()">Join</button>
+  <button class="purple" onclick="contact()">Contact</button>
+  <div id="escapeStatus"></div>
+</div>
+
+<!-- KART -->
+<div class="card">
+  <h2>🏎 Kart Event</h2>
+  <button class="purple" onclick="contact()">Contact</button>
+</div>
+
+<!-- ΠΛΑΝΗΤΑΡΙΟ -->
+<div class="card redCard">
+  <div class="blueText">NEXT</div>
+  <h2>🌌 Πλανητάριο</h2>
+  <p style="font-weight:bold;">SOON</p>
+  <button class="purple" onclick="contact()">Contact</button>
+</div>
 
 </div>
 
@@ -141,6 +160,32 @@ if(escapeName){
 
   document.getElementById("escapeStatus").innerText=
   escapeName+" joined 🧩";
+}
+
+/* RATING SYSTEM */
+const starContainer=document.getElementById("theatreStars");
+
+for(let i=1;i<=5;i++){
+  let star=document.createElement("span");
+  star.innerHTML="⭐";
+  star.className="star";
+
+  star.onclick=function(){
+    localStorage.setItem("theatreRating",i);
+    showRating(i);
+  };
+
+  starContainer.appendChild(star);
+}
+
+function showRating(rating){
+  document.getElementById("ratingResult").innerText=
+  "You rated: "+rating+" ⭐";
+}
+
+let savedRating=localStorage.getItem("theatreRating");
+if(savedRating){
+  showRating(savedRating);
 }
 
 </script>
