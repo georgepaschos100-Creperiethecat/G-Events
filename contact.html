@@ -7,63 +7,77 @@
 
 <style>
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#111;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#0f0f0f,#1a1a1a);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
 }
 
 .container{
-    text-align:center;
-    width:90%;
-    max-width:400px;
-    <button onclick="history.back()">⬅ Back</button>
+  text-align:center;
+  width:90%;
+  max-width:400px;
+  animation:fadeIn 0.7s ease forwards;
 }
 
 h1{
-    margin-bottom:30px;
+  margin-bottom:30px;
 }
 
 .btn{
-    display:block;
-    width:100%;
-    padding:15px;
-    margin:15px 0;
-    border-radius:12px;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:16px;
-    transition:0.3s;
-}
-
-.call{
-    background:#4CAF50;
-    color:white;
-}
-
-.viber{
-    background:#8f5db7;
-    color:white;
-}
-
-.imessage{
-    background:#007AFF;
-    color:white;
-}
-
-.note{
-    font-size:13px;
-    opacity:0.7;
-    margin-top:-10px;
-    margin-bottom:15px;
+  display:block;
+  width:100%;
+  padding:15px;
+  margin:15px 0;
+  border-radius:14px;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:16px;
+  transition:0.3s;
+  border:none;
+  cursor:pointer;
 }
 
 .btn:hover{
-    transform:scale(1.05);
+  transform:scale(1.07);
+  box-shadow:0 0 20px rgba(255,255,255,0.4);
+}
+
+.call{
+  background:#4CAF50;
+  color:white;
+}
+
+.viber{
+  background:#8f5db7;
+  color:white;
+}
+
+.imessage{
+  background:#007AFF;
+  color:white;
+}
+
+.back{
+  background:#333;
+  color:white;
+}
+
+.note{
+  font-size:13px;
+  opacity:0.7;
+  margin-top:-10px;
+  margin-bottom:15px;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
@@ -71,14 +85,24 @@ h1{
 <body>
 
 <div class="container">
-    <h1>Contact Me</h1>
 
-    <a href="tel:6943528311" class="btn call">📞 Call</a>
+  <button class="btn back" onclick="history.back()">⬅ Back</button>
 
-    <a href="viber://chat?number=%2B306943528311" class="btn viber">💜 Send Viber</a>
+  <h1>Contact Me</h1>
 
-    <a href="sms:6943528311" class="btn imessage">💬 iMessage</a>
-    <div class="note">μόνο για iPhone</div>
+  <a href="tel:6943528311">
+    <button class="btn call">📞 Call</button>
+  </a>
+
+  <a href="viber://chat?number=%2B306943528311">
+    <button class="btn viber">💜 Send Viber</button>
+  </a>
+
+  <a href="sms:6943528311">
+    <button class="btn imessage">💬 iMessage</button>
+  </a>
+  <div class="note">μόνο για iPhone</div>
+
 </div>
 
 </body>
