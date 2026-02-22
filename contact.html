@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#111;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    text-align:center;
+    width:90%;
+    max-width:400px;
+}
+
+h1{
+    margin-bottom:30px;
+}
+
+.btn{
+    display:block;
+    width:100%;
+    padding:15px;
+    margin:15px 0;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.call{
+    background:#4CAF50;
+    color:white;
+}
+
+.viber{
+    background:#8f5db7;
+    color:white;
+}
+
+.imessage{
+    background:#007AFF;
+    color:white;
+}
+
+.note{
+    font-size:13px;
+    opacity:0.7;
+    margin-top:-10px;
+    margin-bottom:15px;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Contact Me</h1>
+
+    <a href="tel:6943528311" class="btn call">📞 Call</a>
+
+    <a href="viber://chat?number=%2B306943528311" class="btn viber">💜 Send Viber</a>
+
+    <a href="sms:6943528311" class="btn imessage">💬 iMessage</a>
+    <div class="note">μόνο για iPhone</div>
+</div>
+
+</body>
+</html>
