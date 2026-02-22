@@ -175,7 +175,70 @@ button:hover{
 </div>
 
 <script>
-<script>
+
+document.getElementById("enterBtn").addEventListener("click", checkPassword);
+
+function checkPassword(){
+  const password = document.getElementById("passwordInput").value;
+
+  if(password === "7667"){
+    document.getElementById("lockScreen").style.display="none";
+    document.getElementById("eventsPage").style.display="block";
+    loadJoins();
+  } else {
+    alert("Wrong password");
+  }
+}
+
+function joinEvent(button,eventId){
+  if(localStorage.getItem("joined_"+eventId)){
+    return;
+  }
+
+  let name = prompt("Enter your name:");
+  if(name && name.trim() !== ""){
+    localStorage.setItem("joined_"+eventId,name);
+
+    button.innerText="Already Joined";
+    button.style.background="gray";
+    button.disabled=true;
+
+    document.getElementById(eventId+"Text").innerHTML =
+      "✔ " + name + " joined";
+  }
+}
+
+function loadJoins(){
+  const events=["escape"];
+
+  events.forEach(eventId=>{
+    const savedName = localStorage.getItem("joined_"+eventId);
+    if(savedName){
+      const btn = document.querySelector(
+        "button[onclick=\"joinEvent(this,'"+eventId+"')\"]"
+      );
+      if(btn){
+        btn.innerText="Already Joined";
+        btn.style.background="gray";
+        btn.disabled=true;
+      }
+      document.getElementById(eventId+"Text").innerHTML =
+        "✔ " + savedName + " joined";
+    }
+  });
+}
+
+function rate(star){
+  const stars = star.parentElement.querySelectorAll("span");
+  stars.forEach(s=>s.classList.remove("star-active"));
+  star.classList.add("star-active");
+
+  let rating = Array.from(stars).indexOf(star)+1;
+  document.getElementById("ratingText").innerText =
+    "You rated this event " + rating + " stars";
+}
+
+</script>
 
 function checkPassword(){
   const password = document.getElementById("passwordInput").value;
