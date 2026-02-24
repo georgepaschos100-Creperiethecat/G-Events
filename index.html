@@ -64,6 +64,10 @@ button:hover{
   animation:fadeIn 0.6s ease forwards;
 }
 
+.red-card{
+  background:#8B0000;
+}
+
 .join-btn{
   background:#4CAF50;
   color:white;
@@ -92,6 +96,15 @@ button:hover{
   font-weight:bold;
 }
 
+.info-box{
+  background:#111;
+  padding:15px;
+  border-radius:12px;
+  margin-top:30px;
+  font-size:14px;
+  opacity:0.85;
+}
+
 @keyframes fadeIn{
   from{opacity:0; transform:translateY(20px);}
   to{opacity:1; transform:translateY(0);}
@@ -112,7 +125,7 @@ button:hover{
 <div class="events" id="eventsPage">
 
   <!-- ESCAPE ROOM -->
-  <div class="card">
+  <div class="card red-card">
 
     <div class="next">NEXT</div>
 
@@ -127,7 +140,9 @@ button:hover{
 
     <br>
 
-    <button class="calendar-btn"
+    <button id="escapeCalendar"
+      class="calendar-btn"
+      style="display:none;"
       onclick="addToCalendar('Escape Room','20260228')">
       + Add to Calendar
     </button>
@@ -154,6 +169,14 @@ button:hover{
     <a href="contact.html">
       <button class="contact-btn">Contact</button>
     </a>
+  </div>
+
+  <!-- INFO BOX -->
+  <div class="info-box">
+    Το join button είναι συνήθως διαθέσιμο για τα events που έχουν ημερομηνία.
+    <br><br>
+    Το join button είναι μόνο για την δική σας υπενθύμιση, δεν μπορείτε να συμμετέχετε με το πάτημα του.
+    Αν θέλετε να συμμετέχετε πρέπει να πατήσετε το κουμπί contact και να χρησιμοποιήσετε έναν από τους τρόπους επικοινωνίας.
   </div>
 
 </div>
@@ -189,31 +212,30 @@ function joinEvent(button,eventId){
 
     document.getElementById(eventId+"Text").innerHTML =
       "✔ " + name + " joined";
+
+    document.getElementById("escapeCalendar").style.display="inline-block";
   }
 }
 
 function loadJoins(){
-  const events=["escape"];
-
-  events.forEach(eventId=>{
-    const savedName = localStorage.getItem("joined_"+eventId);
-    if(savedName){
-      const btn = document.querySelector(
-        "button[onclick=\"joinEvent(this,'"+eventId+"')\"]"
-      );
-      if(btn){
-        btn.innerText="Already Joined";
-        btn.style.background="gray";
-        btn.disabled=true;
-      }
-      document.getElementById(eventId+"Text").innerHTML =
-        "✔ " + savedName + " joined";
+  const savedName = localStorage.getItem("joined_escape");
+  if(savedName){
+    const btn = document.querySelector(
+      "button[onclick=\"joinEvent(this,'escape')\"]"
+    );
+    if(btn){
+      btn.innerText="Already Joined";
+      btn.style.background="gray";
+      btn.disabled=true;
     }
-  });
+    document.getElementById("escapeText").innerHTML =
+      "✔ " + savedName + " joined";
+
+    document.getElementById("escapeCalendar").style.display="inline-block";
+  }
 }
 
 function addToCalendar(title,date){
-
   let start = date + "T000000";
   let end = date + "T235900";
 
