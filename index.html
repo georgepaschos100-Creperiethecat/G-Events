@@ -45,8 +45,7 @@ button{
 }
 
 button:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 15px rgba(255,255,255,0.4);
+  transform:scale(1.05);
 }
 
 .events{
@@ -66,6 +65,12 @@ button:hover{
 
 .red-card{
   background:#8B0000;
+  box-shadow:0 0 20px rgba(255,0,0,0.25);
+  transition:0.4s;
+}
+
+.red-card:hover{
+  box-shadow:0 0 30px rgba(255,0,0,0.35);
 }
 
 .join-btn{
@@ -80,6 +85,12 @@ button:hover{
 
 .calendar-btn{
   background:#1e90ff;
+  color:white;
+  font-size:13px;
+}
+
+.cancel-btn{
+  background:#444;
   color:white;
   font-size:13px;
 }
@@ -135,8 +146,20 @@ button:hover{
       ΑΥΤΟ ΤΟ ΣΑΒΒΑΤΟ 📅
     </div>
 
-    <button class="join-btn" onclick="joinEvent(this,'escape')">Join</button>
+    <button id="escapeJoin"
+      class="join-btn"
+      onclick="joinEvent('escape')">
+      Join
+    </button>
+
     <div class="joined-text" id="escapeText"></div>
+
+    <button id="escapeCancel"
+      class="cancel-btn"
+      style="display:none;"
+      onclick="cancelJoin('escape')">
+      Cancel
+    </button>
 
     <br>
 
@@ -196,7 +219,7 @@ function checkPassword(){
   }
 }
 
-function joinEvent(button,eventId){
+function joinEvent(eventId){
 
   if(localStorage.getItem("joined_"+eventId)){
     return;
@@ -206,36 +229,51 @@ function joinEvent(button,eventId){
   if(name && name.trim() !== ""){
     localStorage.setItem("joined_"+eventId,name);
 
-    button.innerText="Already Joined";
-    button.style.background="gray";
-    button.disabled=true;
+    document.getElementById("escapeJoin").innerText="Already Joined";
+    document.getElementById("escapeJoin").style.background="gray";
+    document.getElementById("escapeJoin").disabled=true;
 
-    document.getElementById(eventId+"Text").innerHTML =
+    document.getElementById("escapeText").innerHTML =
       "✔ " + name + " joined";
 
     document.getElementById("escapeCalendar").style.display="inline-block";
+    document.getElementById("escapeCancel").style.display="inline-block";
   }
 }
 
+function cancelJoin(eventId){
+
+  localStorage.removeItem("joined_"+eventId);
+
+  document.getElementById("escapeJoin").innerText="Join";
+  document.getElementById("escapeJoin").style.background="#4CAF50";
+  document.getElementById("escapeJoin").disabled=false;
+
+  document.getElementById("escapeText").innerHTML="";
+  document.getElementById("escapeCalendar").style.display="none";
+  document.getElementById("escapeCancel").style.display="none";
+}
+
 function loadJoins(){
+
   const savedName = localStorage.getItem("joined_escape");
+
   if(savedName){
-    const btn = document.querySelector(
-      "button[onclick=\"joinEvent(this,'escape')\"]"
-    );
-    if(btn){
-      btn.innerText="Already Joined";
-      btn.style.background="gray";
-      btn.disabled=true;
-    }
+
+    document.getElementById("escapeJoin").innerText="Already Joined";
+    document.getElementById("escapeJoin").style.background="gray";
+    document.getElementById("escapeJoin").disabled=true;
+
     document.getElementById("escapeText").innerHTML =
       "✔ " + savedName + " joined";
 
     document.getElementById("escapeCalendar").style.display="inline-block";
+    document.getElementById("escapeCancel").style.display="inline-block";
   }
 }
 
 function addToCalendar(title,date){
+
   let start = date + "T000000";
   let end = date + "T235900";
 
