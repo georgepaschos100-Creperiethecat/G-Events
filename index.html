@@ -64,10 +64,6 @@ button:hover{
   animation:fadeIn 0.6s ease forwards;
 }
 
-.red-card{
-  background:#8B0000;
-}
-
 .join-btn{
   background:#4CAF50;
   color:white;
@@ -78,28 +74,16 @@ button:hover{
   color:white;
 }
 
+.calendar-btn{
+  background:#1e90ff;
+  color:white;
+  font-size:13px;
+}
+
 .next{
   color:#3fa9ff;
   font-weight:bold;
-}
-
-.soon{
-  font-weight:bold;
-}
-
-.rating span{
-  font-size:26px;
-  cursor:pointer;
-}
-
-.star-active{
-  color:gold;
-}
-
-.rating-text{
-  margin-top:10px;
-  font-size:14px;
-  opacity:0.8;
+  margin-bottom:6px;
 }
 
 .joined-text{
@@ -127,30 +111,33 @@ button:hover{
 
 <div class="events" id="eventsPage">
 
-  <!-- ΘΕΑΤΡΟ -->
-  <div class="card">
-    <div>✔ about a day ago</div>
-    <h2>Θέατρο 21/2</h2>
-    <p>Rate the event:</p>
-    <div class="rating">
-      <span onclick="rate(this)">★</span>
-      <span onclick="rate(this)">★</span>
-      <span onclick="rate(this)">★</span>
-      <span onclick="rate(this)">★</span>
-      <span onclick="rate(this)">★</span>
-    </div>
-    <div class="rating-text" id="ratingText"></div>
-  </div>
-
   <!-- ESCAPE ROOM -->
   <div class="card">
+
+    <div class="next">NEXT</div>
+
     <h2>Escape Room</h2>
+
+    <div style="font-weight:bold; margin-bottom:10px;">
+      ΑΥΤΟ ΤΟ ΣΑΒΒΑΤΟ 📅
+    </div>
+
     <button class="join-btn" onclick="joinEvent(this,'escape')">Join</button>
     <div class="joined-text" id="escapeText"></div>
+
     <br>
+
+    <button class="calendar-btn"
+      onclick="addToCalendar('Escape Room','20260228')">
+      + Add to Calendar
+    </button>
+
+    <br>
+
     <a href="contact.html">
       <button class="contact-btn">Contact</button>
     </a>
+
   </div>
 
   <!-- KART -->
@@ -162,11 +149,8 @@ button:hover{
   </div>
 
   <!-- ΠΛΑΝΗΤΑΡΙΟ -->
-  <div class="card red-card">
-    <div class="next">NEXT</div>
+  <div class="card">
     <h2>Πλανητάριο</h2>
-    <div class="soon">SOON</div>
-    <br>
     <a href="contact.html">
       <button class="contact-btn">Contact</button>
     </a>
@@ -180,7 +164,6 @@ document.getElementById("enterBtn").addEventListener("click", checkPassword);
 
 function checkPassword(){
   const password = document.getElementById("passwordInput").value;
-
   if(password === "7667"){
     document.getElementById("lockScreen").style.display="none";
     document.getElementById("eventsPage").style.display="block";
@@ -191,6 +174,7 @@ function checkPassword(){
 }
 
 function joinEvent(button,eventId){
+
   if(localStorage.getItem("joined_"+eventId)){
     return;
   }
@@ -228,19 +212,17 @@ function loadJoins(){
   });
 }
 
-function rate(star){
-  const stars = star.parentElement.querySelectorAll("span");
-  stars.forEach(s=>s.classList.remove("star-active"));
-  star.classList.add("star-active");
+function addToCalendar(title,date){
 
-  let rating = Array.from(stars).indexOf(star)+1;
-  document.getElementById("ratingText").innerText =
-    "You rated this event " + rating + " stars";
+  let start = date + "T000000";
+  let end = date + "T235900";
+
+  let url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent(title)
+    + "&dates=" + start + "/" + end;
+
+  window.open(url, "_blank");
 }
-
-</script>
-
-
 
 </script>
 
