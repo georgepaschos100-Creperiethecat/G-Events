@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mega Events</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0a1f3d;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+
+.neon{
+  font-size:34px;
+  color:#4da6ff;
+  text-shadow:0 0 10px #4da6ff, 0 0 25px #4da6ff;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  margin-bottom:20px;
+  opacity:0.9;
+}
+
+.contact-main{
+  background:#4da6ff;
+  color:white;
+  width:100%;
+  max-width:500px;
+  padding:16px;
+  font-size:18px;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  margin-bottom:30px;
+}
+
+.card{
+  background:black;
+  padding:20px;
+  border-radius:18px;
+  margin:20px auto;
+  max-width:500px;
+}
+
+button{
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  margin:8px 0;
+  cursor:pointer;
+  width:100%;
+  font-weight:bold;
+}
+
+.join-btn{
+  background:#4CAF50;
+  color:white;
+}
+
+.calendar-btn{
+  background:#1e90ff;
+  color:white;
+}
+
+.locked{
+  background:gray;
+  cursor:not-allowed;
+}
+</style>
+</head>
+
+<body>
+
+<div class="neon">MEGA EVENTS</div>
+
+<div class="subtitle">
+Τα Mega Events ανακοινώνονται πολύ πριν από την ημερομηνία τους.
+Για συμμετοχή ή πληροφορίες επικοινωνήστε μαζί μας.
+</div>
+
+<a href="contact.html">
+  <button class="contact-main">Contact</button>
+</a>
+
+<!-- NINTENDO -->
+<div class="card">
+  <h2>Nintendo Switch Party 4</h2>
+  <button class="join-btn locked">🔒 Join Locked</button>
+  <button class="calendar-btn"
+    onclick="addToCalendar('Nintendo Switch Party 4','20260601')">
+    + Add to Calendar
+  </button>
+</div>
+
+<!-- EUROVISION -->
+<div class="card">
+  <h2>Eurovision 2026</h2>
+  <button class="join-btn" onclick="joinEuro()">Join</button>
+  <button class="calendar-btn"
+    onclick="addToCalendar('Eurovision 2026','20260515')">
+    + Add to Calendar
+  </button>
+</div>
+
+<script>
+function joinEuro(){
+  alert("Joined Eurovision 2026!");
+}
+
+function addToCalendar(title,date){
+  window.open(
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="
+    +title+"&dates="+date+"T000000/"+date+"T235900"
+  );
+}
+</script>
+
+</body>
+</html>
