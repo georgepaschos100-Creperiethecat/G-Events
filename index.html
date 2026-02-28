@@ -193,9 +193,18 @@ function joinEvent(){
 }
 
 function cancelJoin(){
+
+  const confirmCancel = confirm("Are you sure you want to cancel?");
+
+  if(!confirmCancel){
+    return;
+  }
+
   localStorage.removeItem("joined_escape");
+
   document.getElementById("escapeJoin").innerText="Join";
   document.getElementById("escapeJoin").disabled=false;
+
   document.getElementById("escapeCalendar").style.display="none";
   document.getElementById("escapeCancel").style.display="none";
   document.getElementById("escapeText").innerHTML="";
