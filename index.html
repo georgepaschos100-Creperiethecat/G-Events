@@ -3,228 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Events</title>
+<title>G Events</title>
 
 <style>
+
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0f0f0f;
-  color:white;
-  text-align:center;
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+text-align:center;
+padding:20px;
 }
 
-.lock-screen{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+/* -------- SITE CONTENT (θα φαίνεται θολό) -------- */
+
+#siteContent{
+filter: blur(10px);
+pointer-events:none;
 }
 
-input{
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  text-align:center;
+h1{
+margin-top:10px;
 }
 
-button{
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  margin:8px 0;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.02);
-}
-
-.events{
-  display:none;
-  padding:20px;
-  max-width:500px;
-  margin:auto;
-}
-
-.section-title{
-  margin:30px 0 15px 0;
-  font-size:22px;
-  font-weight:bold;
+.divider{
+width:60%;
+margin:20px auto;
+border:1px solid #333;
 }
 
 .card{
-  background:#1c1c1c;
-  padding:20px;
-  border-radius:18px;
-  margin-bottom:20px;
+background:#1c1c1c;
+padding:20px;
+border-radius:18px;
+margin:20px auto;
+max-width:500px;
 }
 
-.red-card{
-  background:#8B0000;
-  box-shadow:0 0 20px rgba(255,0,0,0.25);
+button{
+width:100%;
+padding:14px;
+margin:8px 0;
+border:none;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
 }
 
-.join-btn{
-  background:#4CAF50;
-  color:white;
-  width:100%;
-  font-size:16px;
+button:hover{
+transform:scale(1.05);
 }
 
-.contact-btn{
-  background:purple;
-  color:white;
-  width:100%;
+.join-btn{background:#4CAF50;color:white;}
+.contact-btn{background:purple;color:white;}
+.viewMega{background:#4da6ff;color:white;}
+
+/* -------- MAINTENANCE POPUP -------- */
+
+#maintenancePopup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,0.65);
+z-index:9999;
+animation:fadeIn 0.5s ease;
 }
 
-.calendar-btn{
-  background:#1e90ff;
-  color:white;
-  width:100%;
+.popupBox{
+background:#1c1c1c;
+padding:35px;
+border-radius:20px;
+text-align:center;
+width:320px;
+animation:popupSlide 0.6s ease;
 }
 
-.cancel-btn{
-  background:#c62828;
-  color:white;
-  width:100%;
+.popupBox h2{
+margin:10px 0;
 }
 
-.mega-box{
-  background:#1c1c1c;
-  padding:25px;
-  border-radius:18px;
+.popupBox p{
+font-size:14px;
+color:#ddd;
 }
 
-.mega-btn{
-  background:#4da6ff;
-  color:white;
-  width:100%;
-  font-size:18px;
+.popupBox button{
+margin-top:15px;
+background:purple;
+color:white;
 }
 
-.next{
-  color:#3fa9ff;
-  font-weight:bold;
-  margin-bottom:8px;
+.emoji{
+font-size:42px;
 }
+
+/* -------- ANIMATIONS -------- */
+
+@keyframes popupSlide{
+from{
+transform:translateY(70px);
+opacity:0;
+}
+to{
+transform:translateY(0);
+opacity:1;
+}
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="lock-screen" id="lockScreen">
-  <h2>Enter Password</h2>
-  <input type="password" id="passwordInput">
-  <br><br>
-  <button onclick="checkPassword()">Enter</button>
-</div>
+<!-- POPUP -->
 
-<div class="events" id="eventsPage">
+<div id="maintenancePopup">
 
-  <!-- CATEGORY 1 -->
-  <div class="section-title">Διαθέσιμα Events</div>
+<div class="popupBox">
 
-  <div class="card red-card">
-    <div class="next">NEXT</div>
-    <h2>Escape Room</h2>
+<div class="emoji">🛠️</div>
 
-    <button id="escapeJoin" class="join-btn" onclick="joinEvent()">Join</button>
-    <div id="escapeText"></div>
+<h2>Maintenance</h2>
 
-    <button id="escapeCancel" class="cancel-btn" style="display:none;" onclick="cancelJoin()">Cancel</button>
+<p>
+Η σελίδα θα παραμείνει προσωρινά εκτός λειτουργίας
+γιατί χρειάζεται διόρθωση.
+</p>
 
-    <button id="escapeCalendar" class="calendar-btn" style="display:none;" onclick="addToCalendar('Escape Room','20260228')">
-      + Add to Calendar
-    </button>
-
-    <a href="contact.html">
-      <button class="contact-btn">Contact</button>
-    </a>
-  </div>
-
-  <div class="card">
-    <h2>Kart Event</h2>
-    <a href="contact.html">
-      <button class="contact-btn">Contact</button>
-    </a>
-  </div>
-
-  <div class="card">
-    <h2>Πλανητάριο</h2>
-    <a href="contact.html">
-      <button class="contact-btn">Contact</button>
-    </a>
-  </div>
-
-  <!-- CATEGORY 2 -->
-  <div class="section-title">Mega Events</div>
-
-  <div class="mega-box">
-    <a href="mega-events.html">
-      <button class="mega-btn">View Mega Events</button>
-    </a>
-  </div>
+<button onclick="window.location.href='contact.html'">
+Contact
+</button>
 
 </div>
 
-<script>
-function checkPassword(){
-  if(document.getElementById("passwordInput").value==="7667"){
-    document.getElementById("lockScreen").style.display="none";
-    document.getElementById("eventsPage").style.display="block";
-    loadJoins();
-  }
-}
+</div>
 
-function joinEvent(){
-  let name=prompt("Enter your name:");
-  if(name){
-    localStorage.setItem("joined_escape",name);
-    document.getElementById("escapeJoin").innerText="Already Joined";
-    document.getElementById("escapeJoin").disabled=true;
-    document.getElementById("escapeCalendar").style.display="block";
-    document.getElementById("escapeCancel").style.display="block";
-    document.getElementById("escapeText").innerHTML="✔ "+name+" joined";
-  }
-}
+<!-- SITE (θολό από πίσω) -->
 
-function cancelJoin(){
+<div id="siteContent">
 
-  const confirmCancel = confirm("Are you sure you want to cancel?");
+<h1>G EVENTS</h1>
 
-  if(!confirmCancel){
-    return;
-  }
+<hr class="divider">
 
-  localStorage.removeItem("joined_escape");
+<h2>Διαθέσιμα Events</h2>
 
-  document.getElementById("escapeJoin").innerText="Join";
-  document.getElementById("escapeJoin").disabled=false;
+<div class="card">
+<h3>Escape Room</h3>
+<button class="join-btn">Join</button>
+<button class="contact-btn">Contact</button>
+</div>
 
-  document.getElementById("escapeCalendar").style.display="none";
-  document.getElementById("escapeCancel").style.display="none";
-  document.getElementById("escapeText").innerHTML="";
-}
+<hr class="divider">
 
-function loadJoins(){
-  let name=localStorage.getItem("joined_escape");
-  if(name){
-    document.getElementById("escapeJoin").innerText="Already Joined";
-    document.getElementById("escapeJoin").disabled=true;
-    document.getElementById("escapeCalendar").style.display="block";
-    document.getElementById("escapeCancel").style.display="block";
-    document.getElementById("escapeText").innerHTML="✔ "+name+" joined";
-  }
-}
+<h2>Mega Events</h2>
 
-function addToCalendar(title,date){
-  window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text="+title+"&dates="+date+"T000000/"+date+"T235900");
-}
-</script>
+<div class="card">
+<button class="viewMega">
+View Mega Events
+</button>
+</div>
+
+</div>
 
 </body>
 </html>
